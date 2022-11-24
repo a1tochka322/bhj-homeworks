@@ -4,9 +4,7 @@ class Game {
     this.wordElement = container.querySelector('.word');
     this.winsElement = container.querySelector('.status__wins');
     this.lossElement = container.querySelector('.status__loss');
-
     this.reset();
-
     this.registerEvents();
   }
 
@@ -16,17 +14,30 @@ class Game {
     this.lossElement.textContent = 0;
   }
 
+  timer() {
+    this.currentWord = Array.from(this.wordElement.querySelectorAll('.symbol')).length;
+    this.seconds = document.getElementById("seconds");
+    this.seconds.textContent = this.currentWord;
+    this.id = setInterval( () => {
+      this.seconds.textContent --;
+      if (this.seconds.textContent < 1 ) {
+        this.fail();
+      }
+    }, 1000)
+  }
+
   registerEvents() {
-    /*
-      TODO:
-      Написать обработчик события, который откликается
-      на каждый введённый символ.
-      В случае правильного ввода слова вызываем this.success()
-      При неправильном вводе символа - this.fail();
-     */
+    document.onkeyup = (event) => {
+      if (event.key.toLowerCase() === this.currentSymbol.textContent) {
+        this.success();
+      } else {
+        this.fail();
+      }
+    }
   }
 
   success() {
+    clearInterval(this.id);
     this.currentSymbol.classList.add('symbol_correct');
     this.currentSymbol = this.currentSymbol.nextElementSibling;
     if (this.currentSymbol !== null) {
@@ -41,6 +52,7 @@ class Game {
   }
 
   fail() {
+    clearInterval(this.id);
     if (++this.lossElement.textContent === 5) {
       alert('Вы проиграли!');
       this.reset();
@@ -50,7 +62,6 @@ class Game {
 
   setNewWord() {
     const word = this.getWord();
-
     this.renderWord(word);
   }
 
@@ -83,6 +94,8 @@ class Game {
     this.wordElement.innerHTML = html;
 
     this.currentSymbol = this.wordElement.querySelector('.symbol_current');
+    this.timer();
+
   }
 }
 
