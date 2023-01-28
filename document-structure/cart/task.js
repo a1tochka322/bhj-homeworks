@@ -35,8 +35,7 @@ function addToCart(id) {
   const addValue = Number(item.querySelector(".product__quantity-value").innerText);
   if (productsCart.querySelector(`[data-id="${id}"]`)) {
     const currentValue = Number(productsCart.querySelector(`[data-id="${id}"] .cart__product-count`).innerText);
-    const newValue = currentValue + addValue;
-    productsCart.querySelector(`[data-id="${id}"] .cart__product-count`).innerText = newValue;
+    productsCart.querySelector(`[data-id="${id}"] .cart__product-count`).innerText = currentValue + addValue;
   } else {
     const imgSrc = item.querySelector(".product__image").getAttribute("src");
     const newElement = document.createElement('div');
