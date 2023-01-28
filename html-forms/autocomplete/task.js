@@ -50,7 +50,6 @@ class Autocomplete {
 
   onSearch() {
     const matches = this.getMatches( this.searchInput.value );
-
     this.renderMatches( matches );
   }
 
@@ -66,7 +65,6 @@ class Autocomplete {
 
     this.list.innerHTML = html.join('');
   }
-
   getMatches( text ) {
     /*
       TODO: этот метод нужно дописать
@@ -81,12 +79,15 @@ class Autocomplete {
         value: 'Содержимое атрибута value'
       }
     */
-    return [
-      {
-        text: 'Чубакка',
-        value: '1'
+    const options = this.input.options;
+    let results = [];
+    for (let i = 0; i < options.length; i++) {
+      // console.log(options[i].value)
+      if (options[i].text.includes(text)) {
+        results.push({text: options[i].text, value: options[i].value})
       }
-    ];
+    }
+    return results;
   }
 }
 
