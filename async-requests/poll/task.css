@@ -1,5 +1,5 @@
 body {
-  font-family: Arial;
+  font-family: Arial, sans-serif;
 }
 
 .card {
@@ -8,4 +8,8 @@ body {
 
 .poll__title {
   margin-bottom: 20px;
+}
+
+.poll__answer {
+  margin-right: 15px;
 }
